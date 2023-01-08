@@ -120,3 +120,51 @@ in our app.js we should import routes and use in with express :
         });
 
         app.listen(3000);
+
+4.  filtering path when we use routing in express
+
+        app.use("/admin", adminRoutes);
+
+5.  How to serve html in express js
+
+first create your html file example :
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Add Product</title>
+        </head>
+        <body>
+            <header>
+            <nav>
+                <ul>
+                <li><a href="/">Shop</a></li>
+                <li><a href="/add-product">Add Product</a></li>
+                </ul>
+            </nav>
+            </header>
+            <main>
+            <form action="/admin/add-product" method="POST">
+                <input type="text" name="title" />
+                <button type="submit">Add Product</button>
+            </form>
+            </main>
+        </body>
+        </html>
+
+and then we can use res.sendFile("our html path") , but we should specify the path by require path module to join the path example :
+
+        const express = require("express");
+
+        const path = require("path");
+
+        const router = express.Router();
+
+        router.get("/", (req, res, next) => {
+        res.sendFile(path.join(__dirname, "../", "views", "shop.html"));
+        });
+
+        module.exports = router;
