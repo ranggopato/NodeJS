@@ -1,23 +1,23 @@
-1. How to use middleware in express js
+1.  How to use middleware in express js
 
-   const http = require("http");
+        const http = require("http");
 
-   const express = require("express");
+        const express = require("express");
 
-   const app = express();
+        const app = express();
 
-   app.use((req, res, next) => {
-   res.send("<div>test</div>");
-   console.log("in the middleware");
-   next();
-   });
-   app.use((req, res, next) => {
-   console.log("another middleware");
-   });
+        app.use((req, res, next) => {
+        res.send("<div>test</div>");
+        console.log("in the middleware");
+        next();
+        });
+        app.use((req, res, next) => {
+        console.log("another middleware");
+        });
 
-   app.listen(3000);
+        app.listen(3000);
 
-2. How to parsing incoming request in express
+2.  How to parsing incoming request in express
 
 using body parser check this website 'http://expressjs.com/en/resources/middleware/body-parser.html'
 
@@ -99,3 +99,24 @@ in our app.js we should import routes and use in with express :
     });
 
     app.listen(3000);
+
+3. adding 404 page by using middleware we can take advantage of the middleware, so we can put app.use in the last of our code example :
+
+   const express = require("express");
+   const adminRoutes = require("./routes/admin");
+   const shopRoutes = require("./routes/shop");
+
+   const app = express();
+   const bodyParser = require("body-parser");
+
+   app.use(bodyParser.urlencoded({ extended: false }));
+
+   app.use(adminRoutes);
+
+   app.use(shopRoutes);
+
+   app.use((req, res, next) => {
+   res.status(404).send("<h1>Page not found</h1>");
+   });
+
+   app.listen(3000);
