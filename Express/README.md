@@ -100,23 +100,23 @@ in our app.js we should import routes and use in with express :
 
     app.listen(3000);
 
-3. adding 404 page by using middleware we can take advantage of the middleware, so we can put app.use in the last of our code example :
+3.  adding 404 page by using middleware we can take advantage of the middleware, so we can put app.use in the last of our code example :
 
-   const express = require("express");
-   const adminRoutes = require("./routes/admin");
-   const shopRoutes = require("./routes/shop");
+        const express = require("express");
+        const adminRoutes = require("./routes/admin");
+        const shopRoutes = require("./routes/shop");
 
-   const app = express();
-   const bodyParser = require("body-parser");
+        const app = express();
+        const bodyParser = require("body-parser");
 
-   app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.urlencoded({ extended: false }));
 
-   app.use(adminRoutes);
+        app.use(adminRoutes);
 
-   app.use(shopRoutes);
+        app.use(shopRoutes);
 
-   app.use((req, res, next) => {
-   res.status(404).send("<h1>Page not found</h1>");
-   });
+        app.use((req, res, next) => {
+        res.status(404).send("<h1>Page not found</h1>");
+        });
 
-   app.listen(3000);
+        app.listen(3000);
