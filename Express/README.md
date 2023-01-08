@@ -168,3 +168,30 @@ and then we can use res.sendFile("our html path") , but we should specify the pa
         });
 
         module.exports = router;
+
+6.  How to serving files statically, example we want to make our style in folder called css so in our html file we should import our css, we can do this by adding middleware (app.use(express.static(path.join(\_\_dirname, "public")))) so we can access our file example:
+
+        const express = require("express");
+        const path = require("path");
+        const adminRoutes = require("./routes/admin");
+        const shopRoutes = require("./routes/shop");
+
+        const app = express();
+        const bodyParser = require("body-parser");
+
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(express.static(path.join(__dirname, "public")));
+
+        app.use("/admin", adminRoutes);
+
+        app.use(shopRoutes);
+
+        app.use((req, res, next) => {
+        res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+        });
+
+        app.listen(3000);
+
+so in our html we can access or import our html file by
+
+        <link rel="stylesheet" href="/css/product.css" />
